@@ -60,9 +60,15 @@ $( document ).ready(function() {
             hp.addClass("card-title bottom" + character);
             hp.text(rpg[character]['health'] + " / " + rpg[character]['totalHealth'])
             $('.cb' + character).append(hp);
+        },
+        deleteCard: function(character){
+            $("." + character).remove()
         }
     }
     rpg.makeCard('luke', 'enemy')
+    rpg.makeCard('yoda', 'enemySelector')
+    rpg.deleteCard('luke')
+
 });
 
 
