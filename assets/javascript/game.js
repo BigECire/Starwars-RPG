@@ -82,9 +82,12 @@ $( document ).ready(function() {
             
         },
         enemySelector: function(enemy){
+            if(rpg[enemy]['health'] !== 0){
             rpg.defender = enemy
             rpg.deleteCard(enemy)
             rpg.makeCard(enemy, 'enemy')
+            rpg.notAttacking = false
+        }
         },
         attacking: function(def, att){
             rpg[def]['health'] = rpg[def]['health'] - rpg[att]['attack']
@@ -114,7 +117,6 @@ $( document ).ready(function() {
         else if(rpg.notAttacking){
             var val = $(this).attr('value')
             rpg.enemySelector(val)
-            rpg.notAttacking = false
             console.log(val)
         }
         console.log("ran")
