@@ -9,34 +9,34 @@ $( document ).ready(function() {
         luke: {
             name: "Luke Skywalker",
             image: "assets/images/luke.jpg",
-            health: 100,
-            totalHealth: 100,
-            attack: 10,
-            counterAttack: 5
+            health: 200,
+            totalHealth: 200,
+            attack: 3,
+            counterAttack: 12
         },
         yoda: {
             name: "Yoda",
             image: "assets/images/yoda.jpg",
-            health: 120,
-            totalHealth: 120,
-            attack: 12,
-            counterAttack: 6
+            health: 220,
+            totalHealth: 220,
+            attack: 2,
+            counterAttack: 10
         },
         sidious: {
             name: "Darth Sidious",
             image: "assets/images/sidious.jpg",
-            health: 80,
-            totalHealth: 80,
-            attack: 8,
-            counterAttack: 4
+            health: 100,
+            totalHealth: 100,
+            attack: 38,
+            counterAttack: 60
         },
         vader: {
             name: "Darth Vader",
             image: "assets/images/vader.jpg",
-            health: 140,
-            totalHealth: 140,
-            attack: 14,
-            counterAttack: 7
+            health: 120,
+            totalHealth: 120,
+            attack: 23,
+            counterAttack: 50
         },
         makeCard: function(character, place) {
             var card = $("<div>");
