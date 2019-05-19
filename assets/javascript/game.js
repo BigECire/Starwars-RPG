@@ -1,5 +1,9 @@
 $( document ).ready(function() {
     var rpg = {
+        isCharSelet: true,
+        notAttacking: true,
+        player: "",
+        defender: "",
         luke: {
             name: "Luke Skywalker",
             image: "",
@@ -34,7 +38,8 @@ $( document ).ready(function() {
         },
         makeCard: function(character, place) {
             var card = $("<div>");
-            card.addClass("card " + character);
+            card.addClass("card ccard " + character);
+            card.attr("value", character);
             $('#' + place).append(card);
 
             var cardTitle = $("<div>");
@@ -63,29 +68,61 @@ $( document ).ready(function() {
         },
         deleteCard: function(character){
             $("." + character).remove()
+        },
+        charSeletor: function(n){
+            rpg.player = n
+            var names = ["luke", "yoda", "sidious", "vader"]
+            for(var i = 0;i<4;i++){
+                if (n!==names[i]){
+                    rpg.deleteCard(names[i])  
+                    rpg.makeCard(names[i], 'enemySelector')
+                }
+            }
+            rpg.isCharSelet=false
+            
+        },
+        enemySelector: function(enemy){
+            rpg.defender = enemy
+            rpg.deleteCard(enemy)
+            rpg.makeCard(enemy, 'enemy')
+        },
+        attacking: function(def, att){
+            rpg[def]['health'] = rpg[def]['health'] - rpg[att]['attack']
+            rpg[att]['attack'] = rpg[att]['attack'] * 2
+            rpg.deleteCard(def)
+            rpg.makeCard(def, 'enemy')
+            //$("bottom" + def).text(rpg[def]['health'] + " / " + rpg[def]['totalHealth'])
+            if (rpg[def]['health'] <= 0){
+                rpg[def]['health'] = 0
+                rpg.deleteCard(def)
+                rpg.makeCard(def, 'enemySelector')
+                rpg.notAttacking = true
+            }
         }
     }
-    rpg.makeCard('luke', 'enemy')
-    rpg.makeCard('yoda', 'enemySelector')
-    rpg.deleteCard('luke')
+    rpg.makeCard('luke', 'player')
+    rpg.makeCard('yoda', 'player')
+    rpg.makeCard('vader', 'player')
+    rpg.makeCard('sidious', 'player')
+
+    $('.container').on("click",".ccard", function(){
+        if(rpg.isCharSelet){
+            var val = $(this).attr('value')
+            rpg.charSeletor(val)
+            console.log(val)
+        }
+        else if(rpg.notAttacking){
+            var val = $(this).attr('value')
+            rpg.enemySelector(val)
+            rpg.notAttacking = false
+            console.log(val)
+        }
+        console.log("ran")
+    })
+    $('.container').on("click","button", function(){
+        console.log(rpg.defender + ' ' + rpg.player)
+        rpg.attacking(rpg.defender, rpg.player)
+    })
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
