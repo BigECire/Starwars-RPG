@@ -2,6 +2,8 @@ $( document ).ready(function() {
     var rpg = {
         isCharSelet: true,
         notAttacking: true,
+        numOfAttacks: 0,
+        defeated: 0,
         player: "",
         defender: "",
         luke: {
@@ -92,14 +94,50 @@ $( document ).ready(function() {
         attacking: function(def, att){
             rpg[def]['health'] = rpg[def]['health'] - rpg[att]['attack']
             rpg[att]['attack'] = rpg[att]['attack'] * 2
+            rpg[att]['health'] = rpg[att]['health'] - rpg[def]['counterAttack']
             rpg.deleteCard(def)
             rpg.makeCard(def, 'enemy')
-            //$("bottom" + def).text(rpg[def]['health'] + " / " + rpg[def]['totalHealth'])
+            rpg.deleteCard(att)
+            rpg.makeCard(att, 'player')
             if (rpg[def]['health'] <= 0){
                 rpg[def]['health'] = 0
                 rpg.deleteCard(def)
                 rpg.makeCard(def, 'enemySelector')
+                rpg.defeated++
                 rpg.notAttacking = true
+                rpg.winLose()
+            }
+            if (rpg[att]['health'] <= 0){
+                rpg[att]['health'] = 0
+                rpg.deleteCard(att)
+                rpg.makeCard(att, 'enemySelector')
+                rpg.winLose()
+            }
+        },
+        reset: function(){
+            var names = ["luke", "yoda", "sidious", "vader"]
+            rpg[rpg.player]['attack'] = rpg[rpg.player]['attack']/(Math.pow(2, rpg.numOfAttacks))
+            console.log(rpg[rpg.player]['attack'])
+            rpg.player = ""
+            rpg.defender = ""
+            rpg.numOfAttacks = 0
+            rpg.defeated = 0
+            rpg.isCharSelet = true
+            rpg.notAttacking = true
+            for(var i = 0;i<4;i++){
+                rpg[names[i]]['health']=rpg[names[i]]['totalHealth']
+                rpg.deleteCard(names[i])  
+                rpg.makeCard(names[i], 'player')
+            }
+        },
+        winLose: function(){
+            if(rpg[rpg.player]['health'] <= 0){
+                alert("You Lose!")
+                rpg.reset()
+            }
+            else if((rpg[rpg.defender]['health'] <= 0)&&(rpg.defeated===3)){
+                alert("You Win!")
+                rpg.reset()
             }
         }
     }
@@ -122,8 +160,11 @@ $( document ).ready(function() {
         console.log("ran")
     })
     $('.container').on("click","button", function(){
-        console.log(rpg.defender + ' ' + rpg.player)
-        rpg.attacking(rpg.defender, rpg.player)
+        if(!rpg.notAttacking){
+            rpg.numOfAttacks++
+            console.log(rpg.numOfAttacks)
+            rpg.attacking(rpg.defender, rpg.player)
+        }
     })
 
 });
