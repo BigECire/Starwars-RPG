@@ -8,7 +8,7 @@ $( document ).ready(function() {
         defender: "",
         luke: {
             name: "Luke Skywalker",
-            image: "",
+            image: "assets/images/luke.jpg",
             health: 100,
             totalHealth: 100,
             attack: 10,
@@ -16,7 +16,7 @@ $( document ).ready(function() {
         },
         yoda: {
             name: "Yoda",
-            image: "",
+            image: "assets/images/yoda.jpg",
             health: 120,
             totalHealth: 120,
             attack: 12,
@@ -24,7 +24,7 @@ $( document ).ready(function() {
         },
         sidious: {
             name: "Darth Sidious",
-            image: "",
+            image: "assets/images/sidious.jpg",
             health: 80,
             totalHealth: 80,
             attack: 8,
@@ -32,7 +32,7 @@ $( document ).ready(function() {
         },
         vader: {
             name: "Darth Vader",
-            image: "",
+            image: "assets/images/vader.jpg",
             health: 140,
             totalHealth: 140,
             attack: 14,
@@ -42,13 +42,14 @@ $( document ).ready(function() {
             var card = $("<div>");
             card.addClass("card ccard " + character);
             card.attr("value", character);
+            card.attr("style", "float:left")
             $('#' + place).append(card);
 
             var cardTitle = $("<div>");
             cardTitle.addClass("card-header ct" + character);
             $('.' + character).append(cardTitle);
 
-            var title = $("<h4>");
+            var title = $("<h5>");
             title.addClass("card-title top" + character);
             title.text(rpg[character]['name'])
             $('.ct' + character).append(title);
@@ -60,7 +61,7 @@ $( document ).ready(function() {
 
             var pic = $("<img>");
             pic.addClass("card-img-top img" + character);
-            pic.attr("src", "...");
+            pic.attr("src", rpg[character]['image']);
             $('.cb' + character).append(pic);
 
             var hp = $("<h6>");
