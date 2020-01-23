@@ -12,4 +12,7 @@ From this point, you will have to use that character in order to beat the other 
 
 If you would like to play this game, go to the following link:  [Here](https://bigecire.github.io/Starwars-RPG/)
 
+## Technology Used
+HTML, CSS, JavaScript, jQuery, and Bootstrap
+
 Eric Sanders is the full stack developer of this project.
